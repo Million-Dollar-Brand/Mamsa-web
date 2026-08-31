@@ -3,19 +3,25 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { about, decor } from "@/lib/content";
-import { useScrollEffect } from "@/hooks/useScroll";
+import { useScrollEffect, prefersReducedMotion } from "@/hooks/useScroll";
 import { useCountUp } from "@/hooks/useCountUp";
 import { Container, Eyebrow, DisplayHeading, Reveal } from "./ui/Section";
 import { Pill } from "./ui/Pill";
 
 export function WhoWeAre() {
   const garnishRef = useRef<HTMLImageElement>(null);
+  const reducedRef = useRef<boolean | null>(null);
   const { ref: counterRef, value } = useCountUp(about.counter.to);
 
   useScrollEffect((y) => {
-    if (garnishRef.current) {
-      garnishRef.current.style.transform = `rotate(50deg) translateY(${y * -0.06}px)`;
-    }
+    const el = garnishRef.current;
+    if (!el) return;
+    // Checked lazily — the callback only ever runs on the client.
+    if (reducedRef.current === null) reducedRef.current = prefersReducedMotion();
+    // Plate keeps its 50deg tilt as the base and spins on from there with scroll.
+    // translateY comes first so the parallax stays vertical as the plate turns.
+    const spin = reducedRef.current ? 0 : y * 0.08;
+    el.style.transform = `translateY(${y * -0.06}px) rotate(${50 + spin}deg)`;
   });
 
   return (
