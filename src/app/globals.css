@@ -1,0 +1,223 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* Palette — exact values from the design handoff */
+  --color-cream: rgb(242, 234, 218);
+  --color-brown: rgb(68, 46, 19);
+  --color-brown-hover: rgb(88, 60, 25);
+  --color-amber: rgb(243, 174, 88);
+  --color-body: rgb(103, 90, 74);
+  --color-line: rgb(219, 212, 194);
+  --color-whatsapp: #25d366;
+  --color-whatsapp-ink: #0b2e18;
+
+  --font-display: var(--font-koh-santepheap), serif;
+  --font-body: var(--font-roboto-flex), sans-serif;
+
+  --radius-img: 14px;
+  --radius-glass: 11px;
+  --radius-panel: 20px;
+
+  --shadow-float: 0 30px 70px rgba(20, 12, 4, 0.35);
+  --shadow-wa: 0 14px 34px rgba(12, 40, 22, 0.32);
+  --shadow-wa-hover: 0 20px 40px rgba(12, 40, 22, 0.4);
+}
+
+/* Element resets must live in @layer base — unlayered rules outrank
+   Tailwind's utilities layer, which would silently kill margin utilities
+   (mx-auto, mt-6, mb-*) on every heading. */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    @apply font-sans;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-cream);
+    color: var(--color-body);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 25.5px;
+    -webkit-font-smoothing: antialiased;
+    @apply bg-background text-foreground;
+  }
+
+  h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: 300; }
+
+  ::selection { background: var(--color-amber); color: var(--color-brown); }
+  * {
+    @apply border-border outline-ring/50;
+  }
+}
+
+/* ---- Scroll reveal: one-shot, driven by IntersectionObserver ---- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 26px));
+  transition:
+    opacity 0.85s ease var(--reveal-delay, 0s),
+    transform 0.85s ease var(--reveal-delay, 0s);
+}
+[data-reveal="shown"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Continuous animations (names kept from the design) ---- */
+@keyframes anikaFadeA { 0%, 42% { opacity: 1 } 50%, 92% { opacity: 0 } 100% { opacity: 1 } }
+@keyframes anikaFadeB { 0%, 42% { opacity: 0 } 50%, 92% { opacity: 1 } 100% { opacity: 0 } }
+@keyframes anikaKen { 0% { transform: scale(1) } 100% { transform: scale(1.12) } }
+@keyframes anikaMarquee { 0% { transform: translate3d(0,0,0) } 100% { transform: translate3d(-50%,0,0) } }
+@keyframes anikaPulse {
+  0% { box-shadow: 0 0 0 0 rgba(255,255,255,.5) }
+  100% { box-shadow: 0 0 0 46px rgba(255,255,255,0) }
+}
+@keyframes anikaSpin { 0% { transform: rotate(0) } 100% { transform: rotate(360deg) } }
+@keyframes anikaFloat { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-14px) } }
+
+.anim-fade-a { animation: anikaFadeA 16s ease-in-out infinite, anikaKen 16s ease-in-out infinite alternate; }
+.anim-fade-b { animation: anikaFadeB 16s ease-in-out infinite, anikaKen 16s ease-in-out infinite alternate-reverse; }
+.anim-pulse-ring { animation: anikaPulse 2.6s ease-out infinite; }
+.anim-spin-badge { animation: anikaSpin 26s linear infinite; }
+.anim-float { animation: anikaFloat 9s ease-in-out infinite; }
+
+.marquee-track {
+  animation: anikaMarquee var(--marquee-speed, 46s) linear infinite;
+  will-change: transform;
+}
+.marquee-viewport:hover .marquee-track { animation-play-state: paused; }
+
+/* Native date input: keep the calendar glyph on-brand */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: sepia(1) saturate(0.6) hue-rotate(350deg) brightness(0.55);
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .anim-fade-a, .anim-fade-b, .anim-pulse-ring, .anim-spin-badge,
+  .anim-float, .marquee-track {
+    animation: none !important;
+  }
+  .anim-fade-b { opacity: 0; }
+}
+
+@theme inline {
+  --font-heading: "Koh Santepheap", ui-serif, Georgia, serif;
+  --font-sans: "Roboto Flex", ui-sans-serif, system-ui, sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* Point shadcn's base tokens at the brand palette, so its components
+     inherit the site's colours and `body` keeps the cream ground. */
+  --background: rgb(242, 234, 218);
+  --foreground: rgb(103, 90, 74);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: rgb(68, 46, 19);
+  --primary-foreground: rgb(255, 255, 255);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
