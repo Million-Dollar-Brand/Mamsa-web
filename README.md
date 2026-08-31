@@ -1,8 +1,8 @@
 # Mamsa Cafe & Banquet
 
 Single-page marketing site for **Mamsa Cafe & Banquet**, a banquet and catering venue in
-Gurugram. Implemented from the Claude Design handoff in
-`../design_handoff_kwality_durbar/` (`Kwality Durbar.dc.html` + `README.md`).
+Gurugram. Implemented from the Claude Design handoff bundle that accompanies this
+repo (the `.dc.html` design file plus its handoff `README.md`).
 
 ---
 
@@ -232,7 +232,7 @@ recommendations and are **not from an approved design — get them signed off**:
 - The source's `succesfull` typo is corrected to `successful`.
 - "Chat on WhatsApp" was removed from the hero and footer; it remains only on the
   floating button, to avoid three copies of the same CTA.
-- Brand-derived names follow the venue rename: `Durbar Hall` → **Mamsa Hall**,
-  `Durbar Wedding Thali` → **Mamsa Wedding Thali**, menu tier `Durbar` → **Mamsa**.
+- The hall, the signature thali and the top menu tier are all named **Mamsa**, so the
+  venue's own naming stays consistent across the page.
 - Header sub-line is `catering & events`, not the design's `banquet & catering`, which
   would have repeated "Banquet" directly under the wordmark.
