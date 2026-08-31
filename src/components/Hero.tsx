@@ -55,11 +55,21 @@ export function Hero() {
         style={{ backgroundImage: `url(${hero.backgrounds[1]})` }}
         aria-hidden="true"
       />
+      {/* Flat brown wash keeps the photo readable but stops it fighting the headline */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(30,20,8,.62) 0%, rgba(30,20,8,.34) 45%, rgba(30,20,8,.66) 100%)",
+            "linear-gradient(180deg, rgba(40,27,10,.86) 0%, rgba(40,27,10,.74) 45%, rgba(40,27,10,.88) 100%)",
+        }}
+        aria-hidden="true"
+      />
+      {/* Extra pool of darkness centred on the copy so the type reads as solid white */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(60% 55% at 50% 45%, rgba(26,17,6,.55) 0%, rgba(26,17,6,.28) 55%, rgba(26,17,6,0) 100%)",
         }}
         aria-hidden="true"
       />
@@ -92,7 +102,10 @@ export function Hero() {
           {hero.eyebrow}
         </Eyebrow>
 
-        <h1 className="mb-[50px] text-balance font-display text-[clamp(2.75rem,8.5vw,100px)] font-light uppercase leading-none text-white">
+        <h1
+          className="mb-[50px] text-balance font-display text-[clamp(2.75rem,8.5vw,100px)] font-normal uppercase leading-none text-white"
+          style={{ textShadow: "0 2px 28px rgba(20,12,4,.55), 0 1px 3px rgba(20,12,4,.4)" }}
+        >
           {hero.heading}
         </h1>
 

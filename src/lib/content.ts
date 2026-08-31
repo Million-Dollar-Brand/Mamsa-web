@@ -9,12 +9,12 @@
 export const site = {
   name: "Mamsa Cafe & Banquet",
   tagline: "catering & events",
-  phone: "+91 98110 24680",
-  phoneHref: "tel:+919811024680",
+  phone: "+977 9812345678",
+  phoneHref: "tel:+9779812345678",
   email: "events@mamsacafe.com",
   address: "Plot 14, Sector 29, Golf Course Road, Gurugram 122002",
   whatsapp:
-    "https://wa.me/919811024680?text=Hi%2C%20I%27d%20like%20to%20check%20a%20date",
+    "https://wa.me/9779812345678?text=Hi%2C%20I%27d%20like%20to%20check%20a%20date",
 } as const;
 
 export const nav = [
